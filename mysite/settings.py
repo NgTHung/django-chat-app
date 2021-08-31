@@ -73,18 +73,18 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.mysql',
-#        'NAME': 'BBQ$usrpwd',
-#        'USER': 'BBQ',
-#        'PASSWORD': 'thie199299',
-#        'HOST': 'BBQ.mysql.pythonanywhere-services.com',
-#        'OPTION':{
-#          'autocommit': True,
-#        },
-#    }
-#}
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
+
 
 
 # Password validation
