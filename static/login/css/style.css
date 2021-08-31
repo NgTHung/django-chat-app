@@ -1,5 +1,5 @@
 html {
-    background-image: linear-gradient(to bottom right, #ff6699, #06012a);
+    background-image: linear-gradient(to bottom right, #92878b, #06012a);
     height: 100vh;
     width: 100vw;
     background-repeat: no-repeat;
@@ -11,7 +11,7 @@ html {
   border: 1px solid black;
   border-radius: 40px;
   padding: 12px 32px;
-  background-color: rgba(111, 145, 173, 0.322);
+  background-color: rgb(99 103 125 / 20%);
   color: #fff;
 }
 
@@ -122,9 +122,9 @@ input[value="Login"],
   font-weight: bold;
 }
 
-.hd {
-  visibility: hidden !importain;
-}
+/* .hd {
+  visibility: hidden !important;
+} */
 @media screen and (max-width: 1584px) {
     html{
         width: 150%;
