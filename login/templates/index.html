@@ -5,9 +5,10 @@
     <meta charset="utf-8">
     <title>Page Title</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/static/login/css/style.css">
-    <link rel="stylesheet" href="/static/bootstrap/bootstrap.min.css">
-    <script src="/static/login/css/jquery-3.6.0.min.js"></script>
+    {% load static %}
+    <link rel="stylesheet" href='{% static "login/css/style.css" %}'>
+    <link rel="stylesheet" href='{% static "bootstrap/bootstrap.min.css" %}'>
+    <script src='{% static "login/css/jquery-3.6.0.min.js" %}'></script>
 </head>
 
 <body id="bg1">
