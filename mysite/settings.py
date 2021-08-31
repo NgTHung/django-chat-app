@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 import os
 from pathlib import Path
+from django.conf import settings
+from django.conf.urls.static import static
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -120,7 +122,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+# if not DEBUG:
+#    STATICFILES_DIRS = [
+#    str(os.path.join(BASE_DIR, "static")),
+#    ]
+# else:
+STATIC_ROOT = os.path.join(BASE_DIR,'statics')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -130,6 +137,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # default static files settings for PythonAnywhere.
 # see https://help.pythonanywhere.com/pages/DjangoStaticFiles for more info
 
-# STATICFILES_DIRS = [
-#     str(os.path.join(BASE_DIR, "static")),
-# ]
+STATICFILES_DIRS = [
+    str(os.path.join(BASE_DIR, "static")),
+]
