@@ -1,0 +1,133 @@
+html {
+    background-image: linear-gradient(to bottom right, #ff6699, #06012a);
+    height: 100vh;
+    width: 100vw;
+    background-repeat: no-repeat;
+  font: 400 15px/1.8 "Lato", sans-serif;
+}
+#username,
+#pwd {
+  font-size: 12pt;
+  border: 1px solid black;
+  border-radius: 40px;
+  padding: 12px 32px;
+  background-color: rgba(111, 145, 173, 0.322);
+  color: #fff;
+}
+
+#username,
+#pwd:focus {
+  outline: none;
+}
+/* Position text in the middle of the page/image */
+.bg-text {
+  color: white;
+  font-weight: bold;
+  /* transform: translate(-50%, -50%); */
+  z-index: 2;
+}
+
+h2 {
+  font-family: Roboto;
+  text-transform: uppercase;
+  color: white !important;
+  color: inherit;
+}
+
+.overview {
+  position: relative;
+  top: 55%;
+  width: 360px;
+  height: 270px;
+  text-align: center;
+  margin: auto;
+  padding-top: 12px;
+}
+.overviewd {
+  position: absolute;
+  top: 37%;
+  left: 42%;
+  width: auto;
+  height: auto;
+  text-align: center;
+  margin: auto;
+  background-color: transparent;
+}
+.overviewdd {
+  position: relative;
+  top: 55%;
+  width: 360px;
+  height: 340px;
+  text-align: center;
+  margin: auto;
+  padding-top: 12px;
+}
+.br {
+  border: 1px solid gray;
+  border-radius: 10px;
+  border-spacing: 15px;
+  border-collapse: separate;
+}
+input[value="Login"],
+.lg {
+  width: 300px;
+  border-radius: 40px !important;
+}
+
+.bn {
+  padding-top: 12px;
+  padding-right: 31%;
+}
+
+.bnt {
+  padding-right: 100%;
+  margin-right: -560px;
+  margin-top: -38px;
+}
+
+.rn {
+  border-radius: 40px !important;
+}
+
+.bd {
+  border: 1px ridge gray;
+  border-spacing: 15px;
+  border-collapse: separate;
+}
+
+.wrong {
+  color: red;
+  border-radius: 40px;
+}
+
+.wr {
+  color: red;
+}
+
+.a {
+  text-align: left;
+  padding-left: 40px;
+  margin-top: -20px;
+  margin-bottom: 3px;
+  font-size: small;
+}
+.i {
+  padding-top: 15px;
+}
+
+.hidden {
+  border: 1px solid rgba(248, 0, 0, 0.39);
+  background-color: rgba(248, 0, 0, 0.452);
+  color: white;
+  font-weight: bold;
+}
+
+.hd {
+  visibility: hidden !importain;
+}
+@media screen and (max-width: 1584px) {
+    html{
+        width: 150%;
+        height:150%;
+    }
+}

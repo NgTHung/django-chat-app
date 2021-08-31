@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Page Title</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/login/css/style.css">
+    <link rel="stylesheet" href="/bootstrap/bootstrap.min.css">
+    <script src="/static/login/css/jquery-3.6.0.min.js"></script>
+</head>
+
+<body id="bg1">
+    <fieldset class="overviewd" id='p' style='{{stylereg}}'>
+        {% if taken %}
+        <div class="hidden">Username Is Not Available!</div>
+        {% endif %}
+        <legend>
+            <h2 class="font-weight-bold">Join Us!</h2>
+        </legend>
+
+        <div class="overviewdd br" id="hep">
+            <div class="bg-text">
+                <form method="post" id="myForm" action="../register/">
+                    {% csrf_token %}
+                    <p class="a i">Username:</p>
+                    <input type="text" id="username" name="username" placeholder="Your Username" required
+                        pattern="[A-Za-z0-9-_]{3,24}" size="25"><br><br>
+                    <p class="a">Password:</p>
+                    <input type="password" id="pwd" name="pwd1" placeholder="Your Password" required
+                        pattern="[A-Za-z0-9]{8,24}" size="25"><br><br>
+                    <p class="a" id="rp">Confirm Password:</p>
+                    <input type="password" id="pwd" name="pwd2" placeholder="Repeat Your Password" required
+                        pattern="[A-Za-z0-9]{8,24}" size="25"><br><br>
+                    <input type="submit" class="btn btn-outline-secondary lg" />
+                </form>
+
+            </div>
+            <div class=" bn"><a href="../forget/" class="btn btn-outline-secondary rn">Forget your
+                    password?</a>
+            </div>
+            <div class="bnt"><button class="btn btn-outline-secondary rn" id='e' onclick=clicp()>Login?</button></div>
+        </div>
+    </fieldset>
+    <div class="overviewd hd" id='i' style='{{stylelog}}'>{% if mismatch %}
+        <div class="hidden">Username or Password wrong!!</div>
+        {% endif %}
+
+        <h2 class="font-weight-bold">Welcome Back!</h2>
+
+        <div class="overview br" id="hep">
+
+            <div class="bg-text">
+                <form method="post" action="../login/">
+                    {% csrf_token %}
+                    <p class="a i">Username:</p>
+                    <input type="text" id="username" name="username" placeholder="Username" required
+                        pattern="[A-Za-z0-9-_]{3,24}" size="25"><br><br>
+                    <p class="a">Password:</p>
+                    <input type="password" id="pwd" name="pwd" placeholder="Password" required
+                        pattern="[A-Za-z0-9]{8,24}" size="25"><br><br>
+                    <input type="submit" value="Login" class="btn btn-outline-secondary">
+                </form>
+
+            </div>
+            <div class="bn"><a href="../forget/" class="btn btn-outline-secondary rn">Forget your
+                    password?</a></div>
+            <div class="bnt"><button class="btn btn-outline-secondary rn" id='f' onclick=clk()>Register?</button></div>
+        </div>
+    </div>
+
+</body>
+<script>
+    $('#myForm').submit(function (e) {
+        var $inputs = $('#myForm :input');
+        var values = {};
+        $inputs.each(function () {
+            values[this.name] = $(this).val();
+        });
+        if (values['pwd1'] === values['pwd2']) {
+
+        } else {
+            e.preventDefault();
+            $('#myForm').find('input:password').val('')
+            $("#rp").addClass('wrong');
+            $('#rp').html('Password Mismatch!!!')
+        }
+    });
+    function clk() {
+        $("#i").attr('style', 'visibility: hidden !important;');
+        $("#p").attr('style', '')
+    }
+    function clicp() {
+        $("#p").attr('style', 'visibility: hidden !important;');
+        $("#i").attr('style', '')
+    }
+</script>
+
+</html>

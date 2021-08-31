@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>example</title>
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/login/css/style.css">
+    <link rel="stylesheet" href="/bootstrap/bootstrap.min.css">
+
+</head>
+
+<body id='bg1'>
+    <div class="overviewd">{% if mismatch %}
+        <div class="hidden">Username or Password mismatch!!</div>
+        {% endif %}
+
+        <h2 class="font-weight-bold">Welcome Back!</h2>
+
+        <div class="overview br" id="hep">
+
+            <div class="bg-text">
+                <form method="post">
+                    {% csrf_token %}
+                    <p class="a i">Username:</p>
+                    <input type="text" id="username" name="username" placeholder="Username" required
+                        pattern="[A-Za-z0-9-_]{3,24}" size="25"><br><br>
+                    <p class="a">Password:</p>
+                    <input type="password" id="pwd" name="pwd" placeholder="Password" required
+                        pattern="[A-Za-z0-9]{8,24}" size="25"><br><br>
+                    <input type="submit" value="Login" class="btn btn-outline-secondary">
+                </form>
+
+            </div>
+            <div class="bn"><a href="../forget/" class="btn btn-outline-secondary rn">Forget your
+                    password?</a></div>
+            <div class="bnt"><a href="../register/" class="btn btn-outline-secondary rn">Register?</a></div>
+        </div>
+    </div>
+
+</body>
+
+</html>
