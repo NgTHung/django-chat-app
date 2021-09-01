@@ -9,8 +9,14 @@ https://docs.djangoproject.com/en/3.2/howto/deployment/wsgi/
 
 import os
 
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "mysite.settings")
+
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", 'mysite.settings')
+django_app = get_wsgi_application()
 
-application = get_wsgi_application()
+import socketio
+
+from login.views import sio
+
+application = socketio.WSGIApp(sio, django_app)
