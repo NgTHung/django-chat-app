@@ -7,7 +7,7 @@ from django.contrib.auth import login as login_usr
 # from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 # from django.db import connection
 # from django.http import HttpResponse
-sio = socketio.Server(async_mode="gevent_uwsgi")
+sio = socketio.Server(async_mode="gevent")
 thread = None
 
 
