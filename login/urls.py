@@ -9,7 +9,9 @@ urlpatterns = [
     path("logout/", auth_views.LogoutView.as_view(next_page="/"), name="logout"),
     path("register/", views.register),
     path("forget/", views.forget),
-    path("chat", views.chat),
+    path("chat/r/<str:room>/", views.chat),
+    path("chat/", views.wrong),
+    path("chat/r/", views.wrong),
     # path('logn/',views.logn),
     # path('sign_up/',views.sign_up),
 ]
