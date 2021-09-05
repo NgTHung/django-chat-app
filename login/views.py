@@ -67,7 +67,7 @@ def register(request):
         f = reg(usr, password)
         if f == True:
             db = USID.objects.create(username=usr)
-            friends_list = Friends.objects.create(requester=username,friend_list='')
+            friends_list = Friends.objects.create(requester=usr,friend_list='')
             friends_list.save()
             db.save()
             user = authenticate(username=usr, password=password)
