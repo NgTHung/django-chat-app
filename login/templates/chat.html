@@ -11,13 +11,14 @@
   <!-- <link rel="stylesheet" href= "{% static 'bootstrap/bootstrap.min.css' %}"> -->
   <!-- <script src= "{% static 'login/css/jquery-3.6.0.min.js' %}"></script> -->
   <!-- <script src= "{% static 'socketio/socket.io.min.js' %}"></script> -->
+ 
 </head>
 <body>
   <div class="row"> 
     <div class="col-sm-3">
       
-      {% for friend in friends %}
-      <a href="http://localhost:8000/chat/r/{{friend}}"> {{ friend}} </a>
+    {% for friend in friends %}
+      	<a href="{% url 'chat' friend %}">{{friend}}</a>
     {% endfor %}
       
     </div>
@@ -32,14 +33,23 @@
   </div>
 
 <script>
-  const socket = io();
+	function htmlEscape(str) {
+    return str
+        .replace(/&/g, '&amp;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+}
   url = window.location.href;
-  room = 'chatall'
-  let username = "{{ user.username }}";
-  if (url.length > 'http://localhost:8000/chat/r/'.length) {
-      room = url.slice(url.lastIndexOf('r/') + 2,url.length-1)
-      socket.emit("getroom",room)
-      }
+  url = url.slice(0,url.indexOf('/chat/'))
+  if (url.indexOf('80') == -1) {
+  	url += ':80'
+  }
+  const socket = io(url);
+  room = '{{room}}'
+  username = '{{user.username}}'
+  socket.emit('getroom',username,room)
   socket.on("connect", () => {
     socket.emit("connected", "connected", username, room);
     socket.emit("chatrooms", room, username);}
@@ -49,7 +59,8 @@
   // socket.emit("connect", "connected");
   // socket.emit("id", socket.id);
   socket.on("get", (data) => {
-    $("#chat").append("<p>" + data + "</p>");
+  	
+    $("#chat").append("<p>" + htmlEscape(data) + "</p>");
   });
   function auto_grow(element) {
     element.style.height = "5px";

@@ -27,6 +27,7 @@ class friends(models.Model):
     
 class midroom(models.Model):
     first_person = models.CharField(max_length=256)
+    second_person = models.CharField(max_length=256, null=True)
     theroom = models.CharField(max_length=50)
     
     def __str__(self):

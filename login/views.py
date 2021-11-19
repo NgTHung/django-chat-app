@@ -7,18 +7,23 @@ from django.contrib.auth import authenticate
 from django.contrib.auth import login as login_usr
 from login.models import USID, Message, midroom
 from login.models import friends as Friends
-import random, string
-
+import random, string, os
+from django.http import HttpResponse
+from django.views.static import serve
 
 # from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 # from django.db import connection
 # from django.http import HttpResponse
-sio = socketio.Server(async_mode="gevent")
+sio = socketio.Server(async_mode="gevent",cors_allowed_origins='*')
 thread = None
 username = ""
 # session = None
-
-
+def acme(request,file):
+    with open("C:\\Users\\BBQPa\\Documents\\mysite\\well-known\\"+file, 'r') as f:
+        file_content = f.readlines()
+    return HttpResponse(file_content, content_type="text/plain")
+    
+	
 def chat(request, room):
     if not request.user.is_authenticated:
         return redirect("../login/")
@@ -27,9 +32,9 @@ def chat(request, room):
     db = Friends.objects.get(requester=username)
     friends_list = db.friend_list
     friends = friends_list.split()
-    rooms = midroom.objects.get(first_person=username)
+    rooms = midroom.objects.get(first_person=username,second_person=room)
     mess_list = Message.objects.filter(receiver=rooms).values_list('sender','messages')
-    return render(request,'chat.html',{'friends': friends, 'mess_list': mess_list})
+    return render(request,'chat.html',{'friends': friends, 'mess_list': mess_list, 'room': room})
 
 
 def wrong(request):
@@ -40,7 +45,9 @@ def wrong(request):
     db = Friends.objects.get(requester=username)
     friends_list = db.friend_list
     friends = friends_list.split()
-    return render(request,'chat.html',{'friends': friends})
+    rooms = 'chatall'
+    mess_list = Message.objects.filter(receiver=rooms).values_list('sender','messages')
+    return render(request,'chat.html',{'friends': friends, 'mess_list': mess_list, 'room': rooms})
 
 
 
@@ -140,7 +147,7 @@ def chatrooms(sid, chatroom, username):
         sio.enter_room(sid=sid, room='chatall')
         print('connected to chatall')
         return False
-    room = midroom.objects.get(first_person=username).theroom
+    room = midroom.objects.get(first_person=username,second_person=chatroom).theroom
     sio.enter_room(sid=sid, room=room)
     print('connected to ' + room)
     
@@ -169,7 +176,7 @@ def prints(sid, data, username, room = None):
     )
     mess.save()
     sio.emit(
-        'get', f'{username} says: {data}\n', to=room)
+        'get', f'{username}: {data}\n', to=room)
 
 
 @sio.event
@@ -178,6 +185,8 @@ def add_friend(sid, friend):
         session = sio.get_session(sid)
         # global username
         username = session['username']
+        if username == friend:
+            return False
         an_db = Friends.objects.get(requester=friend)
         if session['username'] in an_db.friend_list:
             sio.emit('resp', 'false: already in friend list', room=sid)
@@ -188,20 +197,20 @@ def add_friend(sid, friend):
         if friend in db.friend_list:
             sio.emit('resp', 'false: already in friend list', room=sid)
             return False
-        db.friend_list += friend
+        db.friend_list += ' ' +friend
         db.save()
         sio.emit('resp','success', room=sid)
         rom = ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(30))
-        rdb = midroom.objects.create(first_person=username,theroom= rom)
-        sec_rdm = midroom.objects.create(first_person=friend,theroom= rom)
+        rdb = midroom.objects.create(first_person=username,second_person=friend,theroom= rom)
+        sec_rdm = midroom.objects.create(first_person=friend,second_person=username,theroom= rom)
         rdb.save()
         sec_rdm.save()
     except Exception as error:
         sio.emit('resp', str(error))
 
 @sio.event
-def getroom(sid,data):
-    if data == 'chatall':
+def getroom(sid,data,friend):
+    if friend == 'chatall':
         return False
-    chatroom = midroom.objects.get(first_person=data).theroom
+    chatroom = midroom.objects.get(first_person=data,second_person=friend).theroom
     sio.emit('desroom',chatroom)

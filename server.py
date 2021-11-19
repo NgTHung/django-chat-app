@@ -8,5 +8,5 @@ from geventwebsocket.handler import WebSocketHandler
 PORT = int(sys.argv[1])
 
 pywsgi.WSGIServer(
-    ("", PORT), application, handler_class=WebSocketHandler
+    ("0.0.0.0", PORT), application, handler_class=WebSocketHandler
 ).serve_forever()
