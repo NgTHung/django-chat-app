@@ -17,15 +17,12 @@ def main():
         ) from exc
     execute_from_command_line(sys.argv)
 
-if (sys.args[1] == "runserver"):
+if (sys.argv[1] == "runserver"):
     from mysite.wsgi import application
-
     from gevent import pywsgi
     from geventwebsocket.handler import WebSocketHandler
-
     ip,port = sys.argv[2].split(':')
-    PORT = int(port);
-
+    PORT = int(port)
     pywsgi.WSGIServer(
         ("0.0.0.0", PORT), application, handler_class=WebSocketHandler
     ).serve_forever()
