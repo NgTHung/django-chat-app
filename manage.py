@@ -1,7 +1,7 @@
 #!/usr/bin/env python3.9
 """Django's command-line utility for administrative tasks."""
 import os
-import sys
+# import sys
 
 
 def main():
@@ -18,5 +18,16 @@ def main():
     execute_from_command_line(sys.argv)
 
 
-if __name__ == '__main__':
-    main()
+import sys
+
+from mysite.wsgi import application
+
+from gevent import pywsgi
+from geventwebsocket.handler import WebSocketHandler
+
+ip,port = sys.argv[2].split(':')
+PORT = int(port);
+
+pywsgi.WSGIServer(
+    ("0.0.0.0", PORT), application, handler_class=WebSocketHandler
+).serve_forever()
