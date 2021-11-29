@@ -1,7 +1,7 @@
 #!/usr/bin/env python3.9
 """Django's command-line utility for administrative tasks."""
 import os
-# import sys
+import sys
 
 
 def main():
@@ -17,17 +17,16 @@ def main():
         ) from exc
     execute_from_command_line(sys.argv)
 
+if (sys.args[1] == "runserver"):
+    from mysite.wsgi import application
 
-import sys
+    from gevent import pywsgi
+    from geventwebsocket.handler import WebSocketHandler
 
-from mysite.wsgi import application
+    ip,port = sys.argv[2].split(':')
+    PORT = int(port);
 
-from gevent import pywsgi
-from geventwebsocket.handler import WebSocketHandler
-
-ip,port = sys.argv[2].split(':')
-PORT = int(port);
-
-pywsgi.WSGIServer(
-    ("0.0.0.0", PORT), application, handler_class=WebSocketHandler
-).serve_forever()
+    pywsgi.WSGIServer(
+        ("0.0.0.0", PORT), application, handler_class=WebSocketHandler
+    ).serve_forever()
+else: main()
