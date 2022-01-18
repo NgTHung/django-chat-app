@@ -41,12 +41,7 @@
         .replace(/</g, '&lt;')
         .replace(/>/g, '&gt;');
 }
-  url = window.location.href;
-  url = url.slice(0,url.indexOf('/chat/'))
-  if (url.indexOf('80') == -1) {
-  	url += ':80'
-  }
-  const socket = io(url);
+  const socket = io();
   room = '{{room}}'
   username = '{{user.username}}'
   socket.emit('getroom',username,room)

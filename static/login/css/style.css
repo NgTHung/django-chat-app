@@ -1,9 +1,10 @@
 /* hello */
 html {
-    background-image: linear-gradient(to bottom right, #92878b, #06012a);
-    height: 100vh;
-    width: 100vw;
+    background-image: linear-gradient(to bottom right, #072a4d, #4e6d5f);
+    height: 100%;
+    width: 100%;
     background-repeat: no-repeat;
+    background-attachment: fixed;
   font: 400 15px/1.8 "Lato", sans-serif;
 }
 #username,
@@ -127,9 +128,9 @@ input[value="Login"],
 /* .hd {
   visibility: hidden !important;
 } */
-@media screen and (max-width: 1584px) {
+/* @media screen and (max-width: 1584px) {
     html{
         width: 150%;
         height:150%;
     }
-}
+} */
