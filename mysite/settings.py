@@ -13,6 +13,7 @@ import os
 from pathlib import Path
 from django.conf import settings
 from django.conf.urls.static import static
+from dotenv import load_dotenv
 
 # import socketio
 
@@ -82,26 +83,18 @@ WSGI_APPLICATION = "mysite.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
+
+load_dotenv()
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': "bbqcomvn_chatapp",
-        'USER': "bbqcomvn_usr",
-        "PASSWORD":"tuanhungag1",
-        'HOST': "103.200.22.212",
-        'PORT': "3306"
+        'NAME': os.environ.get("DB_Name"),
+        'USER': os.environ.get("DB_Username"),
+        "PASSWORD":os.environ.get("DB_Password"),
+        'HOST': os.environ.get("DB_Host"),
+        'PORT': os.environ.get("DB_Port")
     }
 }
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': "bbq",
-#         'USER': "root",
-#         "PASSWORD":"tuanhungag1",
-#         'HOST': "127.0.0.1",
-#         'PORT': "3306"
-#     }
-# }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
