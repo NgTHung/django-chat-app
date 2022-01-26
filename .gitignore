@@ -6,6 +6,6 @@ eeee
 git.cmd
 root.crt
 log/
-.vscode
+.vscode/
 include/
 media/
