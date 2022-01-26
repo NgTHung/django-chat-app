@@ -1,0 +1,11 @@
+.env
+env/
+mychatapp/
+db.sqlite3
+eeee
+git.cmd
+root.crt
+log/
+.vscode
+include/
+media/

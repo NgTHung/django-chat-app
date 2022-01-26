@@ -68,6 +68,7 @@
   }
   function sending() {
     data = $("#t").val();
+    if (data == '') return;
     socket.emit("prints", data, username, room);
     $("#t").val("");
   }

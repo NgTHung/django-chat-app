@@ -170,6 +170,8 @@ def connected(sid, data, username, room=None):
 def prints(sid, data, username, room = None):
     # global session
     data = data.strip()
+    if (data == ""):
+        return
     print(f"{username} says: {data}")
     mess = Message.objects.create(
         sender=username, receiver=room, messages=data
