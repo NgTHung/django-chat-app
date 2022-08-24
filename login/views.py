@@ -16,6 +16,7 @@ from django.views.static import serve
 # from django.http import HttpResponse
 sio = socketio.Server(async_mode="gevent",cors_allowed_origins='*')
 thread = None
+global username
 username = ""
 # session = None
 def acme(request,file):
@@ -26,8 +27,8 @@ def acme(request,file):
 	
 def chat(request, room):
     if not request.user.is_authenticated:
-        return redirect("../login/")
-    global username
+        return redirect("../../../login/")
+    # global username
     username = request.user.username
     db = Friends.objects.get(requester=username)
     friends_list = db.friend_list
@@ -39,8 +40,7 @@ def chat(request, room):
 
 def wrong(request):
     if not request.user.is_authenticated:
-        return redirect("../login/")
-    global username
+        return redirect("../../../login")
     username = request.user.username
     db = Friends.objects.get(requester=username)
     friends_list = db.friend_list
